@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mana Brawl</title>
+    <script src="js/debug.js?v=3"></script>
+    <link rel="stylesheet" href="style.css?v=4">
+</head>
+
+<body>
+    <div id="title-screen">
+        <h1 class="game-title">Mana Brawl</h1>
+        <div class="title-options">
+            <input type="checkbox" id="anime-char-toggle" checked>
+            <label for="anime-char-toggle">Enable Anime Characters</label>
+        </div>
+        <div class="title-tabs">
+            <button id="to-selection-btn">Play</button>
+            <button id="story-mode-btn">Story Mode</button>
+            <button id="title-unlockables-btn">Unlockables</button>
+        </div>
+        <div id="title-unlockables-panel" class="title-unlockables-panel" style="display: none;">
+            <h2>Unlockables</h2>
+            <div id="title-unlockables-list" class="unlockables-list"></div>
+        </div>
+    </div>
+
+    <div id="selection-screen" style="display: none;">
+        <h1>Select Your Fighter</h1>
+        <div id="story-mode-status" class="story-mode-status" style="display: none;"></div>
+        <div class="selection-container">
+            <div class="player-select" id="p1-select">
+                <h2>Player 1</h2>
+                <div class="char-btn" data-char="Priest">Priest</div>
+                <div class="char-btn" data-char="Devil">Devil</div>
+                <div class="char-btn" data-char="Fighter">Fighter</div>
+                <div class="char-btn" data-char="Mage">Mage</div>
+                <div class="char-btn" data-char="Barbarian">Barbarian</div>
+                <div class="char-btn" data-char="Spearman">Spearman</div>
+                <div class="char-btn" data-char="Necromancer">Necromancer</div>
+                <div class="char-btn" data-char="Assassin">Assassin</div>
+                <div class="char-btn" data-char="Trapper">Trapper</div>
+                <div class="char-btn" data-char="Broker">Broker</div>
+                <div class="char-btn" data-char="Gambler">Gambler</div>
+                <div class="char-btn" data-char="Sniper">Sniper</div>
+                <div class="char-btn" data-char="Alchemist">Alchemist</div>
+                <div class="char-btn" data-char="Guardian">Guardian</div>
+                <div class="char-btn" data-char="GravityMage">Gravity Mage</div>
+                <div class="char-btn" data-char="Duelist">Duelist</div>
+                <div class="char-btn anime-char" data-char="Mahoraga">Mahoraga</div>
+                <div class="char-info" id="p1-info"></div>
+                <div class="status">Waiting...</div>
+            </div>
+            <div class="player-select" id="p2-select">
+                <h2>Player 2</h2>
+                <div class="char-btn" data-char="Priest">Priest</div>
+                <div class="char-btn" data-char="Devil">Devil</div>
+                <div class="char-btn" data-char="Fighter">Fighter</div>
+                <div class="char-btn" data-char="Mage">Mage</div>
+                <div class="char-btn" data-char="Barbarian">Barbarian</div>
+                <div class="char-btn" data-char="Spearman">Spearman</div>
+                <div class="char-btn" data-char="Necromancer">Necromancer</div>
+                <div class="char-btn" data-char="Assassin">Assassin</div>
+                <div class="char-btn" data-char="Trapper">Trapper</div>
+                <div class="char-btn" data-char="Broker">Broker</div>
+                <div class="char-btn" data-char="Gambler">Gambler</div>
+                <div class="char-btn" data-char="Sniper">Sniper</div>
+                <div class="char-btn" data-char="Alchemist">Alchemist</div>
+                <div class="char-btn" data-char="Guardian">Guardian</div>
+                <div class="char-btn" data-char="GravityMage">Gravity Mage</div>
+                <div class="char-btn" data-char="Duelist">Duelist</div>
+                <div class="char-btn anime-char" data-char="Mahoraga">Mahoraga</div>
+                <div class="npc-toggle">
+                    <div class="npc-toggle-row">
+                        <input type="checkbox" id="p2-npc-mode">
+                        <label for="p2-npc-mode">Play vs NPC</label>
+                    </div>
+                    <div class="npc-level-panel" id="npc-level-panel" style="display: none;">
+                        <label for="npc-level-select">NPC Level</label>
+                        <select id="npc-level-select">
+                            <option value="Rookie">Rookie</option>
+                            <option value="Adept" selected>Adept</option>
+                            <option value="Veteran">Veteran</option>
+                            <option value="Nightmare">Nightmare</option>
+                        </select>
+                        <div id="npc-level-description" class="npc-level-description"></div>
+                    </div>
+                </div>
+                <div class="char-info" id="p2-info"></div>
+                <div class="status">Waiting...</div>
+            </div>
+        </div>
+        <div id="map-selection">
+            <h3>Select Map</h3>
+            <div class="map-btns">
+                <div class="map-btn selected" data-map="Random">Random</div>
+                <div class="map-btn" data-map="Central Arena">Central Arena</div>
+                <div class="map-btn" data-map="Sky Pillars">Sky Pillars</div>
+                <div class="map-btn" data-map="Floating Isles">Floating Isles</div>
+                <div class="map-btn" data-map="Lava Caverns">Lava Caverns</div>
+                <div class="map-btn" data-map="Celestial Tower">Celestial Tower</div>
+                <div class="map-btn" data-map="Chaos Bridges">Chaos Bridges</div>
+                <div class="map-btn" data-map="Titan Expanse">Titan Expanse</div>
+            </div>
+        </div>
+        <div id="modifier-selection">
+            <h3>Select Modifier</h3>
+            <div class="modifier-btns">
+                <div class="modifier-btn selected" data-modifier="Random">Random</div>
+                <div class="modifier-btn" data-modifier="None">None</div>
+                <div class="modifier-btn" data-modifier="Low Gravity">Low Gravity</div>
+                <div class="modifier-btn" data-modifier="Heavy Gravity">Heavy Gravity</div>
+                <div class="modifier-btn" data-modifier="Arcane Surge">Arcane Surge</div>
+                <div class="modifier-btn" data-modifier="Mana Drought">Mana Drought</div>
+                <div class="modifier-btn" data-modifier="Sudden Death">Sudden Death</div>
+                <div class="modifier-btn" data-modifier="Orb Storm">Orb Storm</div>
+                <div class="modifier-btn" data-modifier="Ultimate Fever">Ultimate Fever</div>
+                <div class="modifier-btn" data-modifier="Haste">Haste</div>
+                <div class="modifier-btn" data-modifier="Glass Cannon">Glass Cannon</div>
+                <div class="modifier-btn" data-modifier="Hazard Rush">Hazard Rush</div>
+            </div>
+            <div id="modifier-description" class="modifier-description"></div>
+        </div>
+        <div id="game-speed-selection">
+            <h3>Game Speed</h3>
+            <div class="game-speed-btns">
+                <div class="game-speed-btn" data-speed="Blitz">Blitz</div>
+                <div class="game-speed-btn selected" data-speed="Normal">Normal</div>
+                <div class="game-speed-btn" data-speed="Long">Long</div>
+                <div class="game-speed-btn" data-speed="Epic">Epic</div>
+            </div>
+            <div id="game-speed-description" class="game-speed-description"></div>
+        </div>
+        <div id="stock-selection">
+            <h3>Stocks</h3>
+            <div class="stock-control">
+                <input type="range" id="stock-slider" min="1" max="5" value="1">
+                <div id="stock-value">1 life</div>
+            </div>
+            <div id="stock-description" class="stock-description">Shop and random rerolls happen after the stock set ends.</div>
+        </div>
+        <button id="random-btn">Randomize Classes</button>
+        <button id="start-btn" disabled>Start Fight</button>
+    </div>
+
+    <div id="talent-draft-screen" style="display: none;">
+        <h1>Draft Talents</h1>
+        <div id="draft-status">Player 1, choose a talent.</div>
+        <div class="draft-container">
+            <div class="draft-player active" id="draft-p1">
+                <h2>Player 1</h2>
+                <div class="draft-count" id="draft-p1-count">0 / 3</div>
+                <div class="drafted-list" id="p1-drafted-talents"></div>
+            </div>
+            <div class="draft-player" id="draft-p2">
+                <h2>Player 2</h2>
+                <div class="draft-count" id="draft-p2-count">0 / 3</div>
+                <div class="drafted-list" id="p2-drafted-talents"></div>
+            </div>
+        </div>
+        <div id="talent-options" class="talent-grid"></div>
+        <button id="draft-start-fight" style="display: none;">Start Fight</button>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div id="ui-layer">
+            <div class="player-hud" id="p1-hud">
+                <div class="name">Player 1</div>
+                <div class="bar-container health">
+                    <div class="bar-fill" id="p1-health" style="width: 100%;"></div>
+                </div>
+                <div class="bar-container mana">
+                    <div class="bar-fill" id="p1-mana" style="width: 0%;"></div>
+                </div>
+                <div class="bar-container ultimate">
+                    <div class="bar-fill" id="p1-ultimate" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div class="player-hud" id="p2-hud">
+                <div class="name">Player 2</div>
+                <div class="bar-container health">
+                    <div class="bar-fill" id="p2-health" style="width: 100%;"></div>
+                </div>
+                <div class="bar-container mana">
+                    <div class="bar-fill" id="p2-mana" style="width: 0%;"></div>
+                </div>
+                <div class="bar-container ultimate">
+                    <div class="bar-fill" id="p2-ultimate" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div id="match-meta">
+                <div id="round-display">Round 1</div>
+                <div id="game-speed-display">Speed: Normal</div>
+                <div id="modifier-display">Modifier: None</div>
+                <div id="stock-display">Stocks: 1 - 1</div>
+                <div id="modifier-detail">No extra rules. Just the fighters, the map, and clean brawling.</div>
+                <div id="score-display">0 - 0</div>
+            </div>
+            <div id="message-area"></div>
+        </div>
+        <canvas id="gameCanvas" width="1280" height="800"></canvas>
+        <div id="shop-screen" style="display: none;">
+            <h1>Round Shop</h1>
+            <p id="shop-status">Spend your points, then continue.</p>
+            <div id="round-recap" class="round-recap"></div>
+            <div id="reward-recap" class="reward-recap"></div>
+            <div class="shop-container">
+                <div class="shop-player" id="shop-p1">
+                    <h2>Player 1</h2>
+                    <div class="shop-coins" id="shop-p1-coins">Coins: 0</div>
+                    <button class="shop-btn" data-player="p1" data-upgrade="health">+20 Max Health (2)</button>
+                    <button class="shop-btn" data-player="p1" data-upgrade="mana">+20 Max Mana (2)</button>
+                    <button class="shop-btn" data-player="p1" data-upgrade="speed">+1 Speed (3)</button>
+                    <button class="shop-btn" data-player="p1" data-upgrade="damage">+15% Damage (3)</button>
+                    <button class="shop-btn" data-player="p1" data-upgrade="potionPower">Potion Efficiency (2)</button>
+                    <button class="shop-btn" data-player="p1" data-upgrade="potionDrops">More Potion Drops (2)</button>
+                    <button class="shop-btn" data-player="p1" data-upgrade="ultimateFocus">Lower Ultimate Bar (4)</button>
+                </div>
+                <div class="shop-player" id="shop-p2">
+                    <h2>Player 2</h2>
+                    <div class="shop-coins" id="shop-p2-coins">Coins: 0</div>
+                    <button class="shop-btn" data-player="p2" data-upgrade="health">+20 Max Health (2)</button>
+                    <button class="shop-btn" data-player="p2" data-upgrade="mana">+20 Max Mana (2)</button>
+                    <button class="shop-btn" data-player="p2" data-upgrade="speed">+1 Speed (3)</button>
+                    <button class="shop-btn" data-player="p2" data-upgrade="damage">+15% Damage (3)</button>
+                    <button class="shop-btn" data-player="p2" data-upgrade="potionPower">Potion Efficiency (2)</button>
+                    <button class="shop-btn" data-player="p2" data-upgrade="potionDrops">More Potion Drops (2)</button>
+                    <button class="shop-btn" data-player="p2" data-upgrade="ultimateFocus">Lower Ultimate Bar (4)</button>
+                </div>
+            </div>
+            <button id="shop-continue">Start Next Round</button>
+        </div>
+        <div id="game-over" style="display: none;">
+            <h1 id="winner-text">Player 1 Wins!</h1>
+            <button id="rematch-same">Play Again (Same Classes)</button>
+            <button id="rematch-random">Play Again (Random Classes)</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/input.js?v=3"></script>
+    <script src="js/projectile.js?v=7"></script>
+    <script src="js/character.js?v=8"></script>
+    <script src="js/characters/priest.js?v=3"></script>
+    <script src="js/characters/devil.js?v=3"></script>
+    <script src="js/characters/fighter.js?v=3"></script>
+    <script src="js/characters/mage.js?v=3"></script>
+    <script src="js/characters/barbarian.js?v=3"></script>
+    <script src="js/characters/spearman.js?v=3"></script>
+    <script src="js/characters/necromancer.js?v=6"></script>
+    <script src="js/characters/assassin.js?v=4"></script>
+    <script src="js/characters/trapper.js?v=3"></script>
+    <script src="js/characters/broker.js?v=4"></script>
+    <script src="js/characters/gambler.js?v=5"></script>
+    <script src="js/characters/sniper.js?v=7"></script>
+    <script src="js/characters/alchemist.js?v=6"></script>
+    <script src="js/characters/guardian.js?v=4"></script>
+    <script src="js/characters/gravity_mage.js?v=4"></script>
+    <script src="js/characters/duelist.js?v=6"></script>
+    <script src="js/characters/anime_roster.js?v=9"></script>
+    <script src="js/potion.js?v=3"></script>
+    <script src="js/maps.js?v=5"></script>
+    <script src="js/match_data.js?v=9"></script>
+    <script src="js/game.js?v=13"></script>
+    <script src="js/main.js?v=12"></script>
+</body>
+
+</html>
